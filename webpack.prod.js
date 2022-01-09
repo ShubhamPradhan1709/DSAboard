@@ -2,6 +2,7 @@ const { merge } = require("webpack-merge");
 const common = require("./webpack.common");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 /** @type {import('webpack').Configuration} */
 const config = {
@@ -15,9 +16,8 @@ const config = {
       },
     ],
   },
-  plugins: [
-    new MiniCssExtractPlugin(),
-  ],
+  optimization: { minimizer: [new CssMinimizerPlugin()] },
+  plugins: [new MiniCssExtractPlugin()],
 };
 
 module.exports = merge(common, config);
