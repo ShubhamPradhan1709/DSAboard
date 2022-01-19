@@ -3,6 +3,8 @@ class Board {
 
   constructor() {
     this.canvas = document.createElement("canvas");
+    this.canvas.height = 5000;
+    this.canvas.width = 5000;
   }
 }
 

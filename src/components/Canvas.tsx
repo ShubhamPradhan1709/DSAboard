@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import board from "../Board";
+import board from "./../lib/Board";
 
 const Canvas: FC = () => {
   const canvasContainer = useRef<HTMLDivElement>();
@@ -12,7 +12,7 @@ const Canvas: FC = () => {
     };
   }, []);
 
-  return <main ref={canvasContainer} className="overflow-auto grow"></main>;
+  return <div ref={canvasContainer} id="canvas-container" className="h-full overflow-auto" />;
 };
 
 export default Canvas;
