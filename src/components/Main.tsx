@@ -30,17 +30,10 @@ const Main: FC = () => {
   return (
     <main className="overflow-auto grow relative">
       <div className="absolute right-0 m-3 text-white flex flex-col">
-        <ToolButton handleClick={resetCanvasView} title="Reset Canvas">
-          home
-        </ToolButton>
+        <ToolButton handleClick={resetCanvasView}>home</ToolButton>
         <ToolButton
           handleClick={() => toggleFullScreen()}
           disabled={!document.fullscreenEnabled}
-          title={
-            document.fullscreenEnabled
-              ? "Toggle Fullscreen Mode"
-              : "full-screen mode not supported or allowed."
-          }
         >
           {fullscreen ? "fullscreen_exit" : "fullscreen"}
         </ToolButton>
@@ -48,7 +41,7 @@ const Main: FC = () => {
 
       <Canvas />
 
-      <HomeModal toggleFullScreen={toggleFullScreen} />
+      {/* <HomeModal toggleFullScreen={toggleFullScreen} /> */}
     </main>
   );
 };
