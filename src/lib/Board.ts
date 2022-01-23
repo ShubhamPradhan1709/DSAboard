@@ -1,17 +1,26 @@
-import Node from "./Node";
-import Structure from "./Structure";
+import Structure, { Box } from "./Structure";
 
 class Board {
   canvas: HTMLCanvasElement;
   structList: { [id: number]: Structure };
+  scale: number;
+
+  // add new strucure in structList with this id
+  currID: number;
 
   constructor() {
     this.canvas = document.createElement("canvas");
     this.structList = {};
+
+    this.currID = 0;
+    this.scale = 1;
   }
 
   async draw() {
     const ctx = this.canvas.getContext("2d");
+
+    console.log('here', this.scale);
+
 
     // Update canvas size according to strucures in structList
     let height = 0;
@@ -26,7 +35,7 @@ class Board {
       })
     );
 
-    this.resize(width, height);
+    this.resize(width * this.scale, height * this.scale);
 
     // ===================================================================
     // Set default styles for ctx
@@ -35,12 +44,20 @@ class Board {
     // Clear canvas
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+    // Set Scale
+    ctx.scale(this.scale, this.scale);
+
     // Draw all structures from structureList
     await Promise.all(
       Object.values(this.structList).map(
         async (struct) => await struct.draw(ctx)
       )
     );
+  }
+
+  /** Get unique ID */
+  getID() {
+    return this.currID++;
   }
 
   /** Resize canvas with padding */
@@ -71,20 +88,18 @@ class Board {
   }
 
   /** Add a structure to board */
-  add(struct: Structure): void {
-    let id = 0;
-    do {
-      id = Math.floor(Math.random() * 100);
-    } while (this.structList[id] !== undefined);
-
-    struct._id = id;
-    this.structList[id] = struct;
+  add(...args: Structure[]): void {
+    for (let struct of args) {
+      this.structList[struct._id] = struct;
+    }
   }
 
   /** Remove a structure from board */
-  remove(struct: Structure): void {
-    if (this.structList[struct._id] !== undefined) {
-      delete this.structList[struct._id];
+  remove(...args: Structure[]): void {
+    for (let struct of args) {
+      if (this.structList[struct._id] !== undefined) {
+        delete this.structList[struct._id];
+      }
     }
   }
 }

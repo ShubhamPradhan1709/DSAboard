@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import Header from "../Header";
-import HomeModal from "../HomeModal";
 import Main from "../Main";
 import Panel from "../Panel";
 
@@ -12,7 +11,7 @@ const App: FC = () => {
         <Main />
       </div>
 
-      <Panel></Panel>
+      <Panel />
     </div>
   );
 };

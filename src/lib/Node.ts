@@ -118,7 +118,7 @@ class Node extends Structure {
     ctx.textBaseline = "middle";
     ctx.fillStyle = "white";
     ctx.fillText(
-      Number.isNaN(this.value) ? "" : this.value.toString(),
+      Number.isNaN(this.value) ? "NaN" : this.value.toString(),
       this.box.x + Node.WIDTH / 2,
       this.box.y + Node.HEIGHT / 2
     );

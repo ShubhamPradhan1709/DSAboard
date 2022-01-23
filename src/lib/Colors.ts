@@ -1,7 +1,10 @@
 enum Color {
-  Cyan="cyan",
-    Transparent="transparent"
-  
+  Cyan = "cyan",
+  Violet = "violet",
+  Orange = "orange",
+  Green = "#90ee90",
+  Red = "red",
+  Transparent = "transparent",
 }
 
 export default Color;
