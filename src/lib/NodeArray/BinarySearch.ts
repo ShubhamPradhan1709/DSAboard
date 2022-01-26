@@ -62,6 +62,7 @@ async function BinarySearch(arr: NodeArray, value: number) {
     arr.array[l].color = SUCCESS;
     await board.draw();
     await pause();
+    await pause();
   }
 
   for (let i = 0; i < arr.array.length; i++) {

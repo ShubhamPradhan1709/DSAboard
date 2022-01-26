@@ -74,6 +74,7 @@ class Edge {
       ) - Edge.HEAD_LENGTH;
 
     ctx.lineWidth = 2;
+    ctx.fillStyle = "#ffffff";
 
     ctx.beginPath();
     ctx.moveTo(start.x, start.y);

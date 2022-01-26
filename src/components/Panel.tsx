@@ -14,14 +14,13 @@ const Panel: FC = () => {
   const [height, setHeight] = useState(200);
   const [loading, showLoading] = useState(false);
 
-  const [selectedDS, setSelectedDS] = useState<DS>(DS.NodeArray);
+  const [selectedDS, setSelectedDS] = useState<DS>(DS.BinarySearchTree);
 
   const size = useResponsiveScreen();
 
   const [drag, setDrag] = useState(false);
 
   const handleDrag = (clientY: number) => {
-    console.log(clientY);
     if (drag && clientY > 100) {
       setHeight(window.innerHeight - clientY - 20);
     }

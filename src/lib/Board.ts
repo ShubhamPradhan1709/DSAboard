@@ -17,10 +17,11 @@ class Board {
   }
 
   async draw() {
+    // Get next frame
+    await new Promise((resolve) => window.requestAnimationFrame(resolve));
+
+    // Get canvas context
     const ctx = this.canvas.getContext("2d");
-
-    console.log('here', this.scale);
-
 
     // Update canvas size according to strucures in structList
     let height = 0;

@@ -1,7 +1,7 @@
-import Edge from '../Edge';
-import Label from '../Label';
-import Node from '../Node';
-import Structure from '../Structure';
+import Edge from "../Edge";
+import Label from "../Label";
+import Node from "../Node";
+import Structure from "../Structure";
 
 export class BinaryTreeNode extends Node {
   left?: BinaryTreeNode;
@@ -122,7 +122,7 @@ class BinaryTree extends Structure {
     this.root = new BinaryTreeNode(value);
   }
 
-  protected async align() {
+  async preDraw() {
     // Inorder position of node in below traversal
     let pos = 0;
     const alignNode = async (node: BinaryTreeNode) => {
@@ -158,13 +158,35 @@ class BinaryTree extends Structure {
    * @param {CanvasRenderingContext2D} ctx - canvas rendering context
    */
   public async draw(ctx: CanvasRenderingContext2D) {
-    await this.align();
-    this.root.setLabel('ROOT', Label.UP);
+    this.root.setLabel("ROOT", Label.UP);
     await this.root.draw(ctx);
     this.root.unsetLabel(Label.UP);
 
     await super.draw(ctx);
   }
+
+  preOrderTraversal(): number[] {
+    const arr: number[] = [];
+
+    const stack: BinaryTreeNode[] = [this.root];
+
+    while (stack.length > 0) {
+      const node = stack.pop();
+
+      arr.push(node.value);
+
+      if (node.left) {
+        stack.push(node.left);
+      }
+
+      if (node.right) {
+        stack.push(node.right);
+      }
+    }
+
+    return arr;
+  }
+
 }
 
 export default BinaryTree;

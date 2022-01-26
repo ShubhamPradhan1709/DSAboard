@@ -39,6 +39,8 @@ class Node extends Structure {
 
   /** Draw node */
   public async draw(ctx: CanvasRenderingContext2D) {
+    await super.draw(ctx);
+
     let cornerRadius = Node.HEIGHT / 4;
 
     let x = this.box.x + Node.BORDER / 2;

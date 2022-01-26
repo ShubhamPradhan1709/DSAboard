@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { StructurePanel } from "../../components/Panel";
+import Panel, { StructurePanel } from "../../components/Panel";
 import AlgoButton from "../../components/AlgoButton";
 import board from "../Board";
 import NodeArray from ".";
@@ -12,6 +12,8 @@ import QuickSort from "./QuickSort";
 import AlgoInputButton from "../../components/AlgoInputButton";
 import LinearSearch from "./LinearSearch";
 import BinarySearch from "./BinarySearch";
+import Label from "../../components/Label";
+import PanelSection from "../../components/PanelSection";
 
 const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
   const [arr, setArr] = useState<NodeArray>();
@@ -28,15 +30,17 @@ const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
 
     return () => {
       board.remove(array);
+      play(async () => {
+        await board.draw();
+      });
     };
   }, []);
 
   return (
     <>
-      <div className="m-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Array
-        </label>
+      <PanelSection>
+        <Label title="Array" />
+
         <input
           className="shadow appearance-none border w-full py-2 px-3 text-gray-700 rounded-md border-cyan-400 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
@@ -54,14 +58,10 @@ const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
         <p className="text-violet-500 text-xs italic py-1">
           * Comma seperated values of array.
         </p>
-      </div>
+      </PanelSection>
 
-      <hr className="m-4" />
-
-      <div className="m-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Algorithms
-        </label>
+      <PanelSection>
+        <Label title="Algorithms" />
 
         <AlgoButton
           title="Insertion Sort"
@@ -93,7 +93,7 @@ const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
           title="Binary Search"
           onClick={(value) => play(async () => await BinarySearch(arr, value))}
         />
-      </div>
+      </PanelSection>
     </>
   );
 };
