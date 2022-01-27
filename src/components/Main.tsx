@@ -41,7 +41,7 @@ const Main: FC = () => {
 
       <Canvas />
 
-      {/* <HomeModal toggleFullScreen={toggleFullScreen} /> */}
+      <HomeModal toggleFullScreen={toggleFullScreen} />
     </main>
   );
 };

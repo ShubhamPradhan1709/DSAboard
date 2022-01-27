@@ -103,6 +103,12 @@ class Board {
       }
     }
   }
+
+  /** Remove all structures from board */
+  empty() {
+    this.structList = {};
+    this.currID = 0;
+  }
 }
 
 const board = new Board();
