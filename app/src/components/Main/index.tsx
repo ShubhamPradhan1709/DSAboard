@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
-import resetCanvasView from "../utils/resetCanvasView";
-import Canvas from "./Canvas";
-import HomeModal from "./HomeModal";
-import ToolButton from "./ToolButton";
+import resetCanvasView from "../../utils/resetCanvasView";
+import ToolButton from "../Buttons/ToolButton";
+import Canvas from "../Canvas";
+import HomeModal from "../Modals/HomeModal";
 
 const Main: FC = () => {
   const [fullscreen, setFullscreen] = useState(false);

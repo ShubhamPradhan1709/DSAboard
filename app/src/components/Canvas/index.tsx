@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import board from "./../lib/Board";
+import board from "../../lib/Board";
 
 const Canvas: FC = () => {
   const canvasContainer = useRef<HTMLDivElement>();

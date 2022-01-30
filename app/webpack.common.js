@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { DefinePlugin } = require("webpack");
 
 /** @type {import('webpack').Configuration} */
 const config = {
@@ -27,6 +28,9 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+    }),
+    new DefinePlugin({
+      PRODUCTION: process.env.NODE_ENV === 'production',
     }),
   ],
   output: {

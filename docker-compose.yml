@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  app:
+    image: dsaboard-app:dev
+    build:
+      context: ./app/
+      target: DEV
+    ports:
+      - 8080:8080
+    volumes: 
+      - ./app/:/home/node
+
+  server:
+    image: dsaboard-server:dev
+    build:
+      context: ./server/
+      target: DEV
+    ports:
+      - 8000:8000
+    volumes: 
+      - ./server/:/home/node
+

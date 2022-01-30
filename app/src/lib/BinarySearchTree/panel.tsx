@@ -1,20 +1,25 @@
 import React, { FC, useEffect, useState } from "react";
 import type BinarySearchTree from ".";
-import AlgoInputButton from "../../components/AlgoInputButton";
-import Label from "../../components/Label";
+import AlgoInputButton from "../../components/Buttons/AlgoInputButton";
+import Label from "../../components/Panel/Label";
 import { StructurePanel } from "../../components/Panel";
-import PanelSection from "../../components/PanelSection";
+import Section from "../../components/Panel/Section";
 import board from "../Board";
+import { BACKEND_URL } from "../../utils/server";
+import { pause } from "../../utils/animation";
+import AlgoButton from "../../components/Buttons/AlgoButton";
 
 const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
   const [T, setTree] = useState<BinarySearchTree>();
 
   useEffect(() => {
     play(async () => {
-      const { default: BinarySearchTree } = await import('.');
+      const { default: BinarySearchTree } = await import(".");
+      const values = await fetchRandomData();
+
       const t = new BinarySearchTree(50);
       t.moveTo(100, 100);
-      t.setTreeFromArray([50, 25, 10, 40, 75, 60, 90]);
+      t.setTreeFromArray(values);
 
       setTree(t);
       board.add(t);
@@ -29,10 +34,33 @@ const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
     };
   }, []);
 
+  const fetchRandomData = async () => {
+    const response = await fetch(`${BACKEND_URL}/binarysearchtree`);
+    await pause();
+
+    if (response.ok) {
+      const { data } = (await response.json()) as { data: { values: number[] } };
+      return data.values;
+    } else {
+      alert("Could not fetch data: Will be fixed soon!");
+    }
+  };
+
+  const setRandomData = async () => {
+    await play(async () => {
+      const values = await fetchRandomData();
+      T.setTreeFromArray(values);
+      await board.draw();
+    });
+  };
+
   return (
     <>
-      <PanelSection>
-        <Label title="Tree" />
+      <Section>
+        <AlgoButton title="Load Random Data" onClick={setRandomData} />
+      </Section>
+      <Section>
+        <Label>Tree</Label>
         <input
           className="shadow appearance-none border w-full py-2 px-3 text-gray-700 rounded-md border-cyan-400 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
@@ -51,10 +79,10 @@ const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
           * Comma seperated values that will be inserted to an empty tree in
           sequence.
         </p>
-      </PanelSection>
+      </Section>
 
-      <PanelSection>
-        <Label title="Animations" />
+      <Section>
+        <Label>Animations</Label>
 
         <AlgoInputButton
           title="Search"
@@ -82,7 +110,7 @@ const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
             )
           }
         />
-      </PanelSection>
+      </Section>
     </>
   );
 };

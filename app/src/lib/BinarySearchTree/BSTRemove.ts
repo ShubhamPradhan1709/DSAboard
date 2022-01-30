@@ -5,7 +5,7 @@ import Color from '../Colors';
 import Node from '../Node';
 import BSTSearch from './BSTSearch';
 import {
-    BSTMinimum,
+  BSTMinimum,
   BSTNodeSetLeft,
   BSTNodeSetRight,
   BSTNodeUnsetLeft,

@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
-import BinarySearchTreePanel from "../lib/BinarySearchTree/panel";
-import board from "../lib/Board";
-import DS, { DSList } from "../lib/DS";
-import NodeArrayPanel from "../lib/NodeArray/panel";
-import useResponsiveScreen from "../utils/useResponsiveScreen";
-import Loading from "./Loading";
+import BinarySearchTreePanel from "../../lib/BinarySearchTree/panel";
+import DS, { DSList } from "../../lib/DS";
+import NodeArrayPanel from "../../lib/NodeArray/panel";
+import useResponsiveScreen from "../../utils/useResponsiveScreen";
+import Loading from "../Loading";
+import UtilSection from "./UtilsSection";
 
 export interface StructurePanel {
   play: (func: () => Promise<void>) => Promise<void>;
@@ -13,7 +13,6 @@ export interface StructurePanel {
 const Panel: FC = () => {
   const [height, setHeight] = useState(200);
   const [loading, showLoading] = useState(false);
-
   const [selectedDS, setSelectedDS] = useState<DS>(DS.BinarySearchTree);
 
   const size = useResponsiveScreen();
@@ -53,6 +52,7 @@ const Panel: FC = () => {
           <div className="bg-slate-800 w-1/2 rounded-md p-1"></div>
         </div>
       )}
+
       <div
         className="overflow-auto p-2"
         style={{ height: `${size === "lg" ? "100%" : height + "px"}` }}
@@ -72,39 +72,7 @@ const Panel: FC = () => {
             <DSList setSelectedDS={setSelectedDS} />
           ) : (
             <>
-              <hr className="my-4" />
-              <div className="flex justify-between items-center m-4">
-                <label className="block text-gray-700 text-md font-bold">
-                  Scale
-                  <span className="text-sm italic font-medium">
-                    (between 0 and 1)
-                  </span>
-                </label>
-                <input
-                  className="shadow appearance-none border py-2 px-3 text-gray-700 rounded-md border-cyan-400 leading-tight focus:outline-none focus:shadow-outline"
-                  type="number"
-                  min={0}
-                  step={0.1}
-                  max={1}
-                  defaultValue={board.scale}
-                  onChange={(e) => {
-                    let value = +e.target.value;
-
-                    if (value > 1) {
-                      value = 1;
-                    }
-                    if (value < 0) {
-                      value = 0;
-                    }
-
-                    board.scale = value;
-                    play(async () => {
-                      await board.draw();
-                    });
-                  }}
-                />
-              </div>
-              <hr className="my-4" />
+              <UtilSection play={play} />
 
               {selectedDS === DS.NodeArray && <NodeArrayPanel play={play} />}
               {selectedDS === DS.BinarySearchTree && (

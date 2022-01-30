@@ -39,6 +39,10 @@ class NodeArray extends Structure {
     }
   }
 
+  async preDraw(ctx: CanvasRenderingContext2D): Promise<void> {
+      this.box.width = this.array.length * Node.WIDTH;
+  }
+
   /**
    * Draw node array
    * @param {CanvasRenderingContext2D} ctx - canvas rendering context
