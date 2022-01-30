@@ -1,0 +1,93 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main, action ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  app:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v2
+        with:
+          path: main
+
+      - name: Checkout pages repo
+        uses: actions/checkout@v2
+        with:
+          repository: Chetan-Satpute/Chetan-Satpute.github.io
+          token: ${{ secrets.GH_PAT }}
+          path: pages
+
+      # Runs a set of commands using the runners shell
+      - name: Build React app
+        run: |
+          npm install
+          npm run build
+        working-directory: main/app
+
+      - name: Copy new build files in pages
+        run: |
+          rm -r pages/dsaboard/*
+          cp main/app/dist/* pages/dsaboard/
+      
+      - name: Commit push new changes in pages
+        run: |
+          git config user.name Chetan-Satpute
+          git config user.email Chetan-Satpute@users.noreply.github.com
+          git commit -am "Deploy DSABoard"
+          git push origin main
+        working-directory: pages
+
+  # This workflow contains a single job called "build"
+  server:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+      
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v2
+
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+
+      - name: Deploy backend server
+        run: |
+          git init
+          git config --global user.name 'Chetan Satpute'
+          git config --global user.email 'Chetan-Satpute@users.noreply.github.com'
+          git status
+          git add --all
+          git commit -m "Deploy Server"
+          git log
+          heroku git:remote --app=$HEROKU_APP_NAME
+          git push heroku master
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+        working-directory: server
+

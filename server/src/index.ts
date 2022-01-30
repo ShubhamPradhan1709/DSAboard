@@ -14,5 +14,5 @@ app.use(morgan("dev"));
 
 app.use("/", router);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 app.listen(PORT, () => console.log(`🚀 Server ready at port: ${PORT}`));
