@@ -37,18 +37,21 @@ jobs:
         run: |
           npm install
           npm run build
+          ls -alh dist/
         working-directory: main/app
 
       - name: Copy new build files in pages
         run: |
           rm -r pages/dsaboard/*
           cp main/app/dist/* pages/dsaboard/
+          ls -alh pages/dsaboard/
       
       - name: Commit push new changes in pages
         run: |
           git config user.name Chetan-Satpute
           git config user.email Chetan-Satpute@users.noreply.github.com
-          git commit -am "Deploy DSABoard"
+          git add --all
+          git commit -m "Deploy DSABoard"
           git push origin main
         working-directory: pages
 
