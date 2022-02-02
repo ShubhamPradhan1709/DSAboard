@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-import type BinarySearchTree from ".";
 import AlgoInputButton from "../../components/Buttons/AlgoInputButton";
 import Label from "../../components/Panel/Label";
 import { StructurePanel } from "../../components/Panel";
@@ -9,12 +8,17 @@ import { BACKEND_URL } from "../../utils/server";
 import { pause } from "../../utils/animation";
 import AlgoButton from "../../components/Buttons/AlgoButton";
 
+import BinarySearchTree from ".";
+import BSTSearch from "./BSTSearch";
+import BSTInsert from "./BSTInsert";
+import BSTRemove from "./BSTRemove";
+
 const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
   const [T, setTree] = useState<BinarySearchTree>();
 
   useEffect(() => {
     play(async () => {
-      const { default: BinarySearchTree } = await import(".");
+      // const { default: BinarySearchTree } = await import(".");
       const values = await fetchRandomData();
 
       const t = new BinarySearchTree(50);
@@ -39,7 +43,9 @@ const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
     await pause();
 
     if (response.ok) {
-      const { data } = (await response.json()) as { data: { values: number[] } };
+      const { data } = (await response.json()) as {
+        data: { values: number[] };
+      };
       return data.values;
     } else {
       alert("Could not fetch data: Will be fixed soon!");
@@ -86,29 +92,17 @@ const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
 
         <AlgoInputButton
           title="Search"
-          onClick={(value) =>
-            play(
-              async () => await (await import("./BSTSearch")).default(T, value)
-            )
-          }
+          onClick={(value) => play(async () => await BSTSearch(T, value))}
         />
 
         <AlgoInputButton
           title="Insert"
-          onClick={(value) =>
-            play(
-              async () => await (await import("./BSTInsert")).default(T, value)
-            )
-          }
+          onClick={(value) => play(async () => await BSTInsert(T, value))}
         />
 
         <AlgoInputButton
           title="Remove"
-          onClick={(value) =>
-            play(
-              async () => await (await import("./BSTRemove")).default(T, value)
-            )
-          }
+          onClick={(value) => play(async () => await BSTRemove(T, value))}
         />
       </Section>
     </>

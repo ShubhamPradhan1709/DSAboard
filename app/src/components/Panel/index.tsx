@@ -57,7 +57,6 @@ const Panel: FC = () => {
         </div>
       )}
 
-
       <div
         className="overflow-auto p-2 relative"
         style={{ height: `${size === "lg" ? "100%" : height + "px"}` }}

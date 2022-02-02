@@ -2,19 +2,27 @@ import React, { FC, useEffect, useState } from "react";
 import { StructurePanel } from "../../components/Panel";
 import AlgoButton from "../../components/Buttons/AlgoButton";
 import board from "../Board";
-import type NodeArray from ".";
 import AlgoInputButton from "../../components/Buttons/AlgoInputButton";
 import Label from "../../components/Panel/Label";
 import PanelSection from "../../components/Panel/Section";
 import { BACKEND_URL } from "../../utils/server";
 import { pause } from "../../utils/animation";
 
+import NodeArray from ".";
+import InsertionSort from "./InsertionSort";
+import BubbleSort from "./BubbleSort";
+import MergeSort from "./MergeSort";
+import QuickSort from "./QuickSort";
+import SelectionSort from "./SelectionSort";
+import LinearSearch from "./LinearSearch";
+import BinarySearch from "./BinarySearch";
+
 const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
   const [arr, setArr] = useState<NodeArray>();
 
   useEffect(() => {
     play(async () => {
-      const { default: NodeArray } = await import(".");
+      // const { default: NodeArray } = await import(".");
       const values = await fetchRandomData();
 
       const array = new NodeArray(values);
@@ -85,58 +93,34 @@ const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
 
         <AlgoButton
           title="Insertion Sort"
-          onClick={() =>
-            play(
-              async () => await (await import("./InsertionSort")).default(arr)
-            )
-          }
+          onClick={() => play(async () => await InsertionSort(arr))}
         />
 
         <AlgoButton
           title="Bubble Sort"
-          onClick={() =>
-            play(async () => await (await import("./BubbleSort")).default(arr))
-          }
+          onClick={() => play(async () => await BubbleSort(arr))}
         />
         <AlgoButton
           title="Merge Sort"
-          onClick={() =>
-            play(async () => await (await import("./MergeSort")).default(arr))
-          }
+          onClick={() => play(async () => await MergeSort(arr))}
         />
         <AlgoButton
           title="Quick Sort"
-          onClick={() =>
-            play(async () => await (await import("./QuickSort")).default(arr))
-          }
+          onClick={() => play(async () => await QuickSort(arr))}
         />
         <AlgoButton
           title="Selection Sort"
-          onClick={() =>
-            play(
-              async () => await (await import("./SelectionSort")).default(arr)
-            )
-          }
+          onClick={() => play(async () => await SelectionSort(arr))}
         />
 
         <AlgoInputButton
           title="Linear Search"
-          onClick={(value) =>
-            play(
-              async () =>
-                await (await import("./LinearSearch")).default(arr, value)
-            )
-          }
+          onClick={(value) => play(async () => await LinearSearch(arr, value))}
         />
 
         <AlgoInputButton
           title="Binary Search"
-          onClick={(value) =>
-            play(
-              async () =>
-                await (await import("./BinarySearch")).default(arr, value)
-            )
-          }
+          onClick={(value) => play(async () => await BinarySearch(arr, value))}
         />
       </PanelSection>
     </>
