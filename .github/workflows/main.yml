@@ -86,7 +86,7 @@ jobs:
           git commit -m "Deploy Server"
           git log
           heroku git:remote --app=$HEROKU_APP_NAME
-          git push heroku master
+          git push heroku master --force
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         working-directory: server

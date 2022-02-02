@@ -1,10 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
-import BinarySearchTreePanel from "../../lib/BinarySearchTree/panel";
-import DS, { DSList } from "../../lib/DS";
-import NodeArrayPanel from "../../lib/NodeArray/panel";
 import useResponsiveScreen from "../../utils/useResponsiveScreen";
+import { Routes, Route, useLocation, Link } from "react-router-dom";
 import Loading from "../Loading";
-import UtilSection from "./UtilsSection";
+import DS, { DSList } from "../../lib/DS";
+
+const NodeArrayPanel = React.lazy(() => import("../../lib/NodeArray/panel"));
+const BinarySearchTreePanel = React.lazy(
+  () => import("../../lib/BinarySearchTree/panel")
+);
 
 export interface StructurePanel {
   play: (func: () => Promise<void>) => Promise<void>;
@@ -13,7 +16,8 @@ export interface StructurePanel {
 const Panel: FC = () => {
   const [height, setHeight] = useState(200);
   const [loading, showLoading] = useState(false);
-  const [selectedDS, setSelectedDS] = useState<DS>(DS.BinarySearchTree);
+
+  const location = useLocation();
 
   const size = useResponsiveScreen();
 
@@ -54,33 +58,31 @@ const Panel: FC = () => {
       )}
 
       <div
-        className="overflow-auto p-2"
+        className="overflow-auto p-2 relative"
         style={{ height: `${size === "lg" ? "100%" : height + "px"}` }}
       >
         {loading && <Loading />}
 
-        <div className={`${loading ? "hidden" : ""}`}>
-          <button
-            className="p-3 w-full rounded-lg font-bold bg-slate-600 hover:bg-slate-800 text-white flex justify-between"
-            onClick={() => setSelectedDS(undefined)}
-          >
-            <h2>{selectedDS}</h2>
+        <Link to="/">
+          <button className="p-3 w-full rounded-lg font-bold bg-slate-600 hover:bg-slate-800 text-white flex justify-between">
+            <h2>{location.pathname.substring(1).split("-").join(" ")}</h2>
             <span className="material-icons">expand_more</span>
           </button>
+        </Link>
 
-          {selectedDS === undefined ? (
-            <DSList setSelectedDS={setSelectedDS} />
-          ) : (
-            <>
-              <UtilSection play={play} />
-
-              {selectedDS === DS.NodeArray && <NodeArrayPanel play={play} />}
-              {selectedDS === DS.BinarySearchTree && (
-                <BinarySearchTreePanel play={play} />
-              )}
-            </>
-          )}
-        </div>
+        <React.Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<DSList />} />
+            <Route
+              path={`/${DS.NodeArray.split(" ").join("-")}`}
+              element={<NodeArrayPanel play={play} />}
+            />
+            <Route
+              path={`/${DS.BinarySearchTree.split(" ").join("-")}`}
+              element={<BinarySearchTreePanel play={play} />}
+            />
+          </Routes>
+        </React.Suspense>
       </div>
     </aside>
   );
