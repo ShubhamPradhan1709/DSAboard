@@ -1,6 +1,6 @@
 ref/
 node_modules/
 dist/
-.npm
+.npm/
 
 TODO.md

@@ -3,10 +3,11 @@ import useResponsiveScreen from "../../utils/useResponsiveScreen";
 import { Routes, Route, useLocation, Link } from "react-router-dom";
 import Loading from "../Loading";
 import DS, { DSList } from "../../lib/DS";
+import UtilSection from "./UtilsSection";
 
-const NodeArrayPanel = React.lazy(() => import("../../lib/NodeArray/panel"));
+const NodeArrayPanel = React.lazy(() => import("./panels/NodeArray"));
 const BinarySearchTreePanel = React.lazy(
-  () => import("../../lib/BinarySearchTree/panel")
+  () => import("./panels/BinarySearchTree")
 );
 
 export interface StructurePanel {
@@ -58,7 +59,9 @@ const Panel: FC = () => {
       )}
 
       <div
-        className="overflow-auto p-2 relative"
+        className={`p-2 relative ${
+          loading ? "" : "overflow-auto"
+        }`}
         style={{ height: `${size === "lg" ? "100%" : height + "px"}` }}
       >
         {loading && <Loading />}
@@ -69,6 +72,8 @@ const Panel: FC = () => {
             <span className="material-icons">expand_more</span>
           </button>
         </Link>
+
+        {location.pathname !== "/" && <UtilSection play={play} />}
 
         <React.Suspense fallback={<Loading />}>
           <Routes>
