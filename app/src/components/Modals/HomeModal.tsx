@@ -1,13 +1,9 @@
 import React, { FC, useState } from "react";
+import toggleFullScreen from "../../utils/toggleFullScreen";
 
 // https://tailwindui.com/components/application-ui/overlays/modals
 
-
-interface IProps {
-  toggleFullScreen: (value?: boolean) => Promise<void>;
-}
-
-const HomeModal: FC<IProps> = ({ toggleFullScreen }) => {
+const HomeModal: FC = () => {
   const [showModal, setShowModal] = useState(true);
 
   if (showModal) {

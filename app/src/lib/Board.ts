@@ -1,4 +1,5 @@
-import Structure, { Box } from "./Structure";
+import { lgWidth } from "../utils/useResponsiveScreen";
+import Structure from "./Structure";
 
 class Board {
   canvas: HTMLCanvasElement;
@@ -13,7 +14,7 @@ class Board {
     this.structList = {};
 
     this.currID = 0;
-    this.scale = 1;
+    this.scale = window.innerWidth < lgWidth ? 0.6 : 1;
   }
 
   async draw() {
