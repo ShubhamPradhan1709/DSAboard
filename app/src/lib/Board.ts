@@ -1,4 +1,4 @@
-import { lgWidth } from "../utils/useResponsiveScreen";
+import { lgWidth } from "../hooks/useResponsiveScreen";
 import Structure from "./Structure";
 
 class Board {

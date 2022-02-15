@@ -1,15 +1,12 @@
 import BinarySearchTree from '.';
 import { pause } from '../../utils/animation';
+import { BTNodeSetLeft, BTNodeSetRight, BTNodeUnsetLeft, BTNodeUnsetRight } from '../BinaryTree/utils';
 import board from '../Board';
 import Color from '../Colors';
 import Node from '../Node';
 import BSTSearch from './BSTSearch';
 import {
   BSTMinimum,
-  BSTNodeSetLeft,
-  BSTNodeSetRight,
-  BSTNodeUnsetLeft,
-  BSTNodeUnsetRight,
   BSTTransplant,
 } from './utils';
 
@@ -54,12 +51,12 @@ async function BSTRemove(t: BinarySearchTree, value: number) {
 
         board.add(yTree);
         let ptrRight = ptr.right;
-        await BSTNodeUnsetRight(ptr);
-        await BSTNodeSetRight(y, ptrRight);
+        await BTNodeUnsetRight(ptr);
+        await BTNodeSetRight(y, ptrRight);
         y.right.parent = y;
       }
 
-      await BSTNodeSetLeft(y, await BSTNodeUnsetLeft(ptr));
+      await BTNodeSetLeft(y, await BTNodeUnsetLeft(ptr));
       await BSTTransplant(t, ptr, y);
       y.left.parent = y;
 

@@ -1,10 +1,10 @@
 import BinarySearchTree from '.';
 import { pause } from '../../utils/animation';
 import { BinaryTreeNode } from '../BinaryTree';
+import { BTNodeSetLeft, BTNodeSetRight } from '../BinaryTree/utils';
 import board from '../Board';
 import Color from '../Colors';
 import Node from '../Node';
-import { BSTNodeSetLeft, BSTNodeSetRight } from './utils';
 
 const PRIMARY = Color.Violet;
 const SUCCESS = Color.Green;
@@ -33,10 +33,10 @@ async function BSTInsert(t: BinarySearchTree, value: number) {
 
   if (ptr === undefined) {
     if (value < par.value) {
-      await BSTNodeSetLeft(par, new BinaryTreeNode(value));
+      await BTNodeSetLeft(par, new BinaryTreeNode(value));
       ptr = par.left;
     } else if (value > par.value) {
-      await BSTNodeSetRight(par, new BinaryTreeNode(value));
+      await BTNodeSetRight(par, new BinaryTreeNode(value));
       ptr = par.right;
     }
   }

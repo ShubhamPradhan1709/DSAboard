@@ -4,6 +4,7 @@ enum Color {
   Orange = "orange",
   Green = "#90ee90",
   Red = "red",
+  Blue = 'blue',
   Transparent = "transparent",
 }
 

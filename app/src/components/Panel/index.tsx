@@ -1,10 +1,12 @@
 import React, { FC, useState } from "react";
-import { lgWidth } from "../../utils/useResponsiveScreen";
+import { lgWidth } from "../../hooks/useResponsiveScreen";
 import { Routes, Route, useLocation, Link } from "react-router-dom";
 import Loading from "../Loading";
 import DS, { DSList } from "../../lib/DS";
 import UtilSection from "./UtilsSection";
-import useSlider from "../../utils/useSlider";
+import useSlider from "../../hooks/useSlider";
+import MaxHeapPanel from "./panels/MaxHeap";
+import PriorityQueuePanel from "./panels/PriorityQueue";
 
 const NodeArrayPanel = React.lazy(() => import("./panels/NodeArray"));
 const BinarySearchTreePanel = React.lazy(
@@ -58,6 +60,14 @@ const Panel: FC = () => {
             <Route
               path={`/${DS.BinarySearchTree.split(" ").join("-")}`}
               element={<BinarySearchTreePanel play={play} />}
+            />
+            <Route
+              path={`/${DS.MaxHeap.split(" ").join("-")}`}
+              element={<MaxHeapPanel play={play} />}
+            />
+            <Route
+              path={`/${DS.PriorityQueue.split(" ").join("-")}`}
+              element={<PriorityQueuePanel play={play} />}
             />
           </Routes>
         </React.Suspense>

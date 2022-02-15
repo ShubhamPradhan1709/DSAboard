@@ -4,73 +4,10 @@ import BinarySearchTree from ".";
 import board from "../Board";
 import Node from "../Node";
 import Color from "../Colors";
+import { BTNodeSetLeft, BTNodeSetRight } from "../BinaryTree/utils";
 
 const PRIMARY = Color.Violet;
 const SUCCESS = Color.Green;
-
-export async function BSTNodeSetLeft(
-  node: BinaryTreeNode,
-  child: BinaryTreeNode
-) {
-  await BSTNodeUnsetLeft(node);
-
-  if (child) {
-    node.left = child;
-    child.parent = node;
-
-    for (let i = 0; i <= 100; i += 2) {
-      node.leftEdgePercent = i;
-      await board.draw();
-    }
-  }
-}
-
-export async function BSTNodeSetRight(
-  node: BinaryTreeNode,
-  child: BinaryTreeNode
-) {
-  await BSTNodeUnsetRight(node);
-
-  if (child) {
-    node.right = child;
-    child.parent = node;
-
-    for (let i = 0; i <= 100; i += 2) {
-      node.rightEdgePercent = i;
-      await board.draw();
-    }
-  }
-}
-
-export async function BSTNodeUnsetLeft(node: BinaryTreeNode) {
-  if (node.left) {
-    for (let i = 100; i >= 0; i -= 2) {
-      node.leftEdgePercent = i;
-      await board.draw();
-    }
-  }
-
-  let nodeLeft = node.left;
-
-  node.left = undefined;
-
-  return nodeLeft;
-}
-
-export async function BSTNodeUnsetRight(node: BinaryTreeNode) {
-  if (node.right) {
-    for (let i = 100; i >= 0; i -= 2) {
-      node.rightEdgePercent = i;
-      await board.draw();
-    }
-  }
-
-  let nodeRight = node.right;
-
-  node.right = undefined;
-
-  return nodeRight;
-}
 
 export async function BSTMinimum(node: BinaryTreeNode) {
   if (node !== undefined) {
@@ -106,9 +43,9 @@ export async function BSTTransplant(
   if (u.parent === undefined) {
     t.root = v;
   } else if (u === u.parent.left) {
-    await BSTNodeSetLeft(u.parent, v);
+    await BTNodeSetLeft(u.parent, v);
   } else if (u === u.parent.right) {
-    await BSTNodeSetRight(u.parent, v);
+    await BTNodeSetRight(u.parent, v);
   }
 
   if (v !== undefined) {

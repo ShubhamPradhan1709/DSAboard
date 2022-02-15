@@ -122,9 +122,13 @@ class BinaryTree extends Structure {
     this.root = new BinaryTreeNode(value);
   }
 
-  async preDraw() {
+  async preDraw(ctx: CanvasRenderingContext2D) {
     // Inorder position of node in below traversal
     let pos = 0;
+
+    this.box.width = 0;
+    this.box.height = 0;
+
     const alignNode = async (node: BinaryTreeNode) => {
       if (node.left) {
         node.left.box.y = node.box.y + Node.HEIGHT * 2;
@@ -136,7 +140,7 @@ class BinaryTree extends Structure {
       pos += 1;
 
       // Update box height
-      this.box.height = Math.max(this.box.height, node.box.y);
+      this.box.height = Math.max(this.box.height, node.box.y + node.box.height - this.box.y);
 
       if (node.right) {
         node.right.box.y = node.box.y + Node.HEIGHT * 2;

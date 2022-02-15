@@ -11,7 +11,7 @@ class NodeArray extends Structure {
    * @param {number} y - y position
    * @param {number[]} array - number array
    */
-  constructor(array: number[]) {
+  constructor(array: number[] = []) {
     super();
 
     this.box = {
@@ -48,8 +48,6 @@ class NodeArray extends Structure {
    * @param {CanvasRenderingContext2D} ctx - canvas rendering context
    */
   public async draw(ctx: CanvasRenderingContext2D) {
-    await super.draw(ctx);
-
     // Update box width
     this.box.width = 0;
     this.box.width = this.array.length * Node.WIDTH;
