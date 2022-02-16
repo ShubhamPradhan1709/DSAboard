@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+export const lgWidth = 1024;
+export const mdWidth = 768;
+
 function useResponsiveScreen() {
   const [width, setWidth] = useState(0);
 

@@ -1,6 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import Header from "../Header";
 import Main from "../Main";
+import HomeModal from "../Modals/HomeModal";
 import Panel from "../Panel";
 
 const App: FC = () => {
@@ -12,7 +13,10 @@ const App: FC = () => {
       </div>
 
       <Panel />
+      <HomeModal />
     </div>
   );
 };
+
 export default App;
+

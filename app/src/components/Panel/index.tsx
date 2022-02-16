@@ -1,39 +1,27 @@
-import React, { FC, useEffect, useState } from "react";
-import useResponsiveScreen from "../../utils/useResponsiveScreen";
+import React, { FC, useState } from "react";
+import { lgWidth } from "../../hooks/useResponsiveScreen";
 import { Routes, Route, useLocation, Link } from "react-router-dom";
 import Loading from "../Loading";
 import DS, { DSList } from "../../lib/DS";
+import UtilSection from "./UtilsSection";
+import useSlider from "../../hooks/useSlider";
 
-const NodeArrayPanel = React.lazy(() => import("../../lib/NodeArray/panel"));
+const NodeArrayPanel = React.lazy(() => import("./panels/NodeArray"));
 const BinarySearchTreePanel = React.lazy(
-  () => import("../../lib/BinarySearchTree/panel")
+  () => import("./panels/BinarySearchTree")
 );
+const MaxHeapPanel = React.lazy(() => import("./panels/MaxHeap"));
+const PriorityQueuePanel = React.lazy(() => import("./panels/PriorityQueue"));
 
 export interface StructurePanel {
   play: (func: () => Promise<void>) => Promise<void>;
 }
 
 const Panel: FC = () => {
-  const [height, setHeight] = useState(200);
   const [loading, showLoading] = useState(false);
+  const [height, Slider] = useSlider();
 
   const location = useLocation();
-
-  const size = useResponsiveScreen();
-
-  const [drag, setDrag] = useState(false);
-
-  const handleDrag = (clientY: number) => {
-    if (drag && clientY > 100) {
-      setHeight(window.innerHeight - clientY - 20);
-    }
-  };
-
-  useEffect(() => {
-    if (height + 100 > window.innerHeight) {
-      setHeight(window.innerHeight - 100);
-    }
-  });
 
   const play = async (func: () => Promise<void>) => {
     showLoading(true);
@@ -43,23 +31,13 @@ const Panel: FC = () => {
 
   return (
     <aside className="fixed w-screen bottom-0 bg-white rounded-t-3xl lg:rounded-none lg:relative lg:shrink-0 lg:w-1/3">
-      {size !== "lg" && (
-        <div
-          className="p-3 flex justify-center"
-          onMouseDown={() => setDrag(true)}
-          onTouchStart={() => setDrag(true)}
-          onMouseMove={(e) => handleDrag(e.clientY)}
-          onTouchMove={(e) => handleDrag(e.touches[0].clientY)}
-          onMouseUp={() => setDrag(false)}
-          onTouchEnd={() => setDrag(false)}
-        >
-          <div className="bg-slate-800 w-1/2 rounded-md p-1"></div>
-        </div>
-      )}
+      <Slider />
 
       <div
-        className="overflow-auto p-2 relative"
-        style={{ height: `${size === "lg" ? "100%" : height + "px"}` }}
+        className={`p-2 relative ${loading ? "" : "overflow-auto"}`}
+        style={{
+          height: `${window.innerWidth >= lgWidth ? "100%" : height + "px"}`,
+        }}
       >
         {loading && <Loading />}
 
@@ -69,6 +47,8 @@ const Panel: FC = () => {
             <span className="material-icons">expand_more</span>
           </button>
         </Link>
+
+        {location.pathname !== "/" && <UtilSection play={play} />}
 
         <React.Suspense fallback={<Loading />}>
           <Routes>
@@ -80,6 +60,14 @@ const Panel: FC = () => {
             <Route
               path={`/${DS.BinarySearchTree.split(" ").join("-")}`}
               element={<BinarySearchTreePanel play={play} />}
+            />
+            <Route
+              path={`/${DS.MaxHeap.split(" ").join("-")}`}
+              element={<MaxHeapPanel play={play} />}
+            />
+            <Route
+              path={`/${DS.PriorityQueue.split(" ").join("-")}`}
+              element={<PriorityQueuePanel play={play} />}
             />
           </Routes>
         </React.Suspense>

@@ -8,5 +8,12 @@ module.exports = {
   variants: {
     extend: {},
   },
+  theme: {
+    extend: {
+      colors: {
+        boardbg: "#212121"
+      }
+    }
+  },
   plugins: [],
 };

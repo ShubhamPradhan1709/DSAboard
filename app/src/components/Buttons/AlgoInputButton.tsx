@@ -12,7 +12,7 @@ const AlgoInputButton: FC<IProps> = ({ title, onClick }) => {
     <div className="flex items-center justify-between">
       <input
         className="shadow flex-shrink appearance-none w-1/3 border mr-2 py-2 px-3 text-gray-700 rounded-md border-cyan-400 leading-tight focus:outline-none focus:shadow-outline"
-        type="number"
+        type="string"
         placeholder="Value to Search"
         value={searchValue}
         onChange={(e) => setSearchValue(+e.target.value)}

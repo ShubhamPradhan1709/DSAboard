@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 enum DS {
   NodeArray = "Node Array",
   BinarySearchTree = "Binary Search Tree",
+  MaxHeap = "Max Heap",
+  PriorityQueue = "Priority Queue"
 }
 
 export const DSList: FC = () => {
