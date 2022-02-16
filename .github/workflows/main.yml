@@ -42,7 +42,8 @@ jobs:
 
       - name: Copy new build files in pages
         run: |
-          rm -r pages/dsaboard/*
+          rm -r pages/dsaboard
+          mkdir pages/dsaboard
           cp main/app/dist/* pages/dsaboard/
           ls -alh pages/dsaboard/
       
