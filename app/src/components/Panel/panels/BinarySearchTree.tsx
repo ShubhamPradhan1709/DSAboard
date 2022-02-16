@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { StructurePanel } from "..";
 import board from "../../../lib/Board";
 import { fetchRoute } from "../../../utils/server";
@@ -14,19 +14,10 @@ import BSTSearch from "../../../lib/BinarySearchTree/BSTSearch";
 
 const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
   const [T, setTree] = useState<BinarySearchTree>();
+  const inputRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
-    play(async () => {
-      const { values } = await fetchRoute("binarySearchTree");
-
-      const t = new BinarySearchTree(50);
-      t.moveTo(100, 100);
-      t.setTreeFromArray(values);
-
-      setTree(t);
-      board.add(t);
-      await board.draw();
-    });
+    setRandomData();
 
     return () => {
       play(async () => {
@@ -38,8 +29,16 @@ const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
 
   const setRandomData = async () => {
     await play(async () => {
+      board.empty();
+
       const { values } = await fetchRoute("binarySearchTree");
-      T.setTreeFromArray(values);
+
+      const t = new BinarySearchTree(50);
+      t.moveTo(100, 100);
+      t.setTreeFromArray(values);
+
+      setTree(t);
+      board.add(t);
       await board.draw();
     });
   };
@@ -57,10 +56,11 @@ const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
         <Label>Tree</Label>
         <div className="flex items-center">
           <input
+            ref={inputRef}
             className="shadow appearance-none border flex-1 py-2 px-3 text-gray-700 rounded-md border-cyan-400 leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="Tree Nodes"
-            value={T.preOrderTraversal().join()}
+            defaultValue={T.preOrderTraversal().join()}
             onChange={(e) => {
               let values = e.target.value.split(",").map((val) => +val);
 
@@ -71,17 +71,12 @@ const BinarySearchTreePanel: FC<StructurePanel> = ({ play }) => {
             }}
           />
           <button
-            className="my-1 mx-2 font-semibold leading-none text-white bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none"
+            className="material-icons p-3 text-white bg-blue-700 rounded-md ml-3"
             onClick={() => {
-              let values = T.preOrderTraversal();
-
-              T.setTreeFromArray(values);
-              play(async () => {
-                await board.draw();
-              });
+              inputRef.current.value = T.preOrderTraversal().join();
             }}
           >
-          <span className="material-icons">send</span>
+            update
           </button>
         </div>
         <p className="text-violet-500 text-xs italic py-1">

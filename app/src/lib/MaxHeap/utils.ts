@@ -3,6 +3,7 @@ import { pause } from "../../utils/animation";
 import board from "../Board";
 import Color from "../Colors";
 import Heap from "../Heap";
+import { MinHeapify } from "../PriorityQueue/utils";
 
 export async function MaxHeapify(heap: MaxHeap, i: number = 0) {
   let largest = i;
@@ -11,32 +12,34 @@ export async function MaxHeapify(heap: MaxHeap, i: number = 0) {
   await board.draw();
   await pause();
 
-  heap.array[Heap.LEFT(i)].color = Color.Violet;
-  await board.draw();
-  await pause();
-  if (
-    Heap.LEFT(i) < heap.array.length &&
-    heap.array[Heap.LEFT(i)].value > heap.array[largest].value
-  ) {
-    largest = Heap.LEFT(i);
-  } else {
-    heap.array[Heap.LEFT(i)].color = Color.Transparent;
+  if (Heap.LEFT(i) < heap.array.length) {
+    heap.array[Heap.LEFT(i)].color = Color.Violet;
     await board.draw();
     await pause();
+    if (heap.array[Heap.LEFT(i)].value > heap.array[largest].value) {
+      largest = Heap.LEFT(i);
+    } else {
+      heap.array[Heap.LEFT(i)].color = Color.Transparent;
+      await board.draw();
+      await pause();
+    }
   }
 
-  heap.array[Heap.RIGHT(i)].color = Color.Violet;
-  await board.draw();
-  await pause();
-  if (
-    Heap.RIGHT(i) < heap.array.length &&
-    heap.array[Heap.RIGHT(i)].value > heap.array[largest].value
-  ) {
-    largest = Heap.RIGHT(i);
-  } else {
-    heap.array[Heap.RIGHT(i)].color = Color.Transparent;
+  if (Heap.RIGHT(i) < heap.array.length) {
+    heap.array[Heap.RIGHT(i)].color = Color.Violet;
     await board.draw();
     await pause();
+    if (heap.array[Heap.RIGHT(i)].value > heap.array[largest].value) {
+      largest = Heap.RIGHT(i);
+
+      heap.array[Heap.LEFT(i)].color = Color.Transparent;
+      await board.draw();
+      await pause();
+    } else {
+      heap.array[Heap.RIGHT(i)].color = Color.Transparent;
+      await board.draw();
+      await pause();
+    }
   }
 
   if (largest !== i) {
@@ -55,7 +58,10 @@ export async function MaxHeapify(heap: MaxHeap, i: number = 0) {
     await board.draw();
     await pause();
 
-    await heap.heapify(largest);
+    await MaxHeapify(heap, largest);
+
+    heap.array[largest].color = Color.Transparent;
+    await board.draw();
+    await pause();
   }
 }
-

@@ -37,10 +37,6 @@ async function PriorityQueueRemove(heap: PriorityQueue) {
 
 
   await MinHeapify(heap);
-  await board.draw();
-  await pause();
-
-  console.log(heap.array);
 }
 
 export default PriorityQueueRemove;

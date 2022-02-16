@@ -16,11 +16,7 @@ class Heap extends BinaryTree {
   constructor(arr: number[] = [50]) {
     super(arr[0]);
 
-    this.array = [];
-
-    for (let i = 0; i < arr.length; i++) {
-      this.array.push(new BinaryTreeNode(arr[i]));
-    }
+    this.setTreeFromArray(arr);
   }
 
   async preDraw(ctx: CanvasRenderingContext2D): Promise<void> {

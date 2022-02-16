@@ -37,10 +37,6 @@ async function MaxHeapRemove(heap: MaxHeap) {
 
 
   await MaxHeapify(heap);
-  await board.draw();
-  await pause();
-
-  console.log(heap.array);
 }
 
 export default MaxHeapRemove;

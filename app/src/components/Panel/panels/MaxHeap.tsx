@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { StructurePanel } from "..";
 import board from "../../../lib/Board";
 import MaxHeap from "../../../lib/MaxHeap";
 import MaxHeapInsert from "../../../lib/MaxHeap/insert";
 import MaxHeapRemove from "../../../lib/MaxHeap/remove";
+import { fetchRoute } from "../../../utils/server";
 import AlgoButton from "../../Buttons/AlgoButton";
 import AlgoInputButton from "../../Buttons/AlgoInputButton";
 import Label from "../Label";
@@ -11,6 +12,7 @@ import Section from "../Section";
 
 const MaxHeapPanel: FC<StructurePanel> = ({ play }) => {
   const [heap, setHeap] = useState<MaxHeap>();
+  const inputRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
     setRandomData();
@@ -25,12 +27,17 @@ const MaxHeapPanel: FC<StructurePanel> = ({ play }) => {
 
   const setRandomData = async () => {
     await play(async () => {
+      board.empty();
+
       const t = new MaxHeap();
       t.moveTo(100, 100);
 
+      const { array: values } = await fetchRoute("array");
+
+      t.setTreeFromArray(values);
+
       setHeap(t);
       board.add(t);
-      await board.draw();
       await board.draw();
     });
   };
@@ -48,20 +55,33 @@ const MaxHeapPanel: FC<StructurePanel> = ({ play }) => {
       <Section>
         <Label>Heap (Array Representation)</Label>
 
-        <input
-          className="shadow appearance-none border w-full py-2 px-3 text-gray-700 rounded-md border-cyan-400 leading-tight focus:outline-none focus:shadow-outline"
-          type="text"
-          placeholder="Array"
-          defaultValue={heap.array.map((node) => node.value).join()}
-          onChange={(e) => {
-            let values = e.target.value.split(",").map((val) => +val);
+        <div className="flex items-center">
+          <input
+            ref={inputRef}
+            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 rounded-md border-cyan-400 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Array"
+            defaultValue={heap.array.map((node) => node.value).join()}
+            onChange={(e) => {
+              let values = e.target.value.split(",").map((val) => +val);
 
-            play(async () => {
-              heap.setTreeFromArray(values);
-              await board.draw();
-            });
-          }}
-        />
+              play(async () => {
+                heap.setTreeFromArray(values);
+                await board.draw();
+              });
+            }}
+          />
+          <button
+            className="material-icons p-3 text-white bg-blue-700 rounded-md ml-3"
+            onClick={() => {
+              inputRef.current.value = heap.array
+                .map((node) => node.value)
+                .join();
+            }}
+          >
+            update
+          </button>
+        </div>
 
         <p className="text-violet-500 text-xs italic py-1">
           * Comma seperated values of array.
@@ -70,7 +90,9 @@ const MaxHeapPanel: FC<StructurePanel> = ({ play }) => {
       <Section>
         <AlgoInputButton
           title="Insert"
-          onClick={(value) => play(async () => await MaxHeapInsert(heap, value))}
+          onClick={(value) =>
+            play(async () => await MaxHeapInsert(heap, value))
+          }
         />
 
         <AlgoButton

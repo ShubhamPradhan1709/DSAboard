@@ -20,16 +20,7 @@ const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
   const [arr, setArr] = useState<NodeArray>();
 
   useEffect(() => {
-    play(async () => {
-      const { array: values } = await fetchRoute("array");
-
-      const array = new NodeArray(values);
-      array.moveTo(100, 100);
-
-      setArr(array);
-      board.add(array);
-      await board.draw();
-    });
+    setRandomData();
 
     return () => {
       play(async () => {
@@ -41,8 +32,15 @@ const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
 
   const setRandomData = async () => {
     await play(async () => {
+      board.empty();
+
       const { array: values } = await fetchRoute("array");
-      arr.setArray(values);
+
+      const array = new NodeArray(values);
+      array.moveTo(100, 100);
+
+      setArr(array);
+      board.add(array);
       await board.draw();
     });
   };
