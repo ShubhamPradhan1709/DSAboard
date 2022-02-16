@@ -5,13 +5,13 @@ import Loading from "../Loading";
 import DS, { DSList } from "../../lib/DS";
 import UtilSection from "./UtilsSection";
 import useSlider from "../../hooks/useSlider";
-import MaxHeapPanel from "./panels/MaxHeap";
-import PriorityQueuePanel from "./panels/PriorityQueue";
 
 const NodeArrayPanel = React.lazy(() => import("./panels/NodeArray"));
 const BinarySearchTreePanel = React.lazy(
   () => import("./panels/BinarySearchTree")
 );
+const MaxHeapPanel = React.lazy(() => import("./panels/MaxHeap"));
+const PriorityQueuePanel = React.lazy(() => import("./panels/PriorityQueue"));
 
 export interface StructurePanel {
   play: (func: () => Promise<void>) => Promise<void>;

@@ -1,11 +1,11 @@
-import MaxHeap from ".";
+import PriorityQueue from ".";
 import { pause } from "../../utils/animation";
 import { BTNodeUnsetLeft, BTNodeUnsetRight } from "../BinaryTree/utils";
 import board from "../Board";
 import Color from "../Colors";
-import { MaxHeapify } from "./utils";
+import { MinHeapify } from "./utils";
 
-async function MaxHeapRemove(heap: MaxHeap) {
+async function PriorityQueueRemove(heap: PriorityQueue) {
   heap.array[0].color = Color.Red;
   await board.draw();
   await pause();
@@ -36,11 +36,11 @@ async function MaxHeapRemove(heap: MaxHeap) {
   await pause();
 
 
-  await MaxHeapify(heap);
+  await MinHeapify(heap);
   await board.draw();
   await pause();
 
   console.log(heap.array);
 }
 
-export default MaxHeapRemove;
+export default PriorityQueueRemove;

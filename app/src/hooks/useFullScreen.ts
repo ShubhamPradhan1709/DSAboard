@@ -27,4 +27,3 @@ const useFullScreen = (): [boolean, () => Promise<void>] => {
 };
 
 export default useFullScreen;
-

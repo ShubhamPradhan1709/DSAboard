@@ -1,13 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
 import { StructurePanel } from "..";
 import board from "../../../lib/Board";
-import Heap from "../../../lib/Heap";
 import PriorityQueue from "../../../lib/PriorityQueue";
+import PriorityQueueInsert from "../../../lib/PriorityQueue/insert";
+import PriorityQueueRemove from "../../../lib/PriorityQueue/remove";
 import AlgoButton from "../../Buttons/AlgoButton";
+import AlgoInputButton from "../../Buttons/AlgoInputButton";
+import Label from "../Label";
 import Section from "../Section";
 
 const PriorityQueuePanel: FC<StructurePanel> = ({ play }) => {
-  const [heap, setHeap] = useState<Heap>();
+  const [heap, setHeap] = useState<PriorityQueue>();
 
   useEffect(() => {
     setRandomData();
@@ -28,6 +31,7 @@ const PriorityQueuePanel: FC<StructurePanel> = ({ play }) => {
       setHeap(t);
       board.add(t);
       await board.draw();
+      await board.draw();
     });
   };
 
@@ -40,8 +44,43 @@ const PriorityQueuePanel: FC<StructurePanel> = ({ play }) => {
       <Section>
         <AlgoButton title="Load Random Data" onClick={setRandomData} />
       </Section>
+
+      <Section>
+        <Label>Heap (Array Representation)</Label>
+
+        <input
+          className="shadow appearance-none border w-full py-2 px-3 text-gray-700 rounded-md border-cyan-400 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          placeholder="Array"
+          defaultValue={heap.array.map((node) => node.value).join()}
+          onChange={(e) => {
+            let values = e.target.value.split(",").map((val) => +val);
+
+            play(async () => {
+              heap.setTreeFromArray(values);
+              await board.draw();
+            });
+          }}
+        />
+
+        <p className="text-violet-500 text-xs italic py-1">
+          * Comma seperated values of array.
+        </p>
+      </Section>
+      <Section>
+        <AlgoInputButton
+          title="Insert"
+          onClick={(value) => play(async () => await PriorityQueueInsert(heap, value))}
+        />
+
+        <AlgoButton
+          title="Remove"
+          onClick={() => play(async () => await PriorityQueueRemove(heap))}
+        />
+      </Section>
     </>
   );
 };
 
 export default PriorityQueuePanel;
+

@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { StructurePanel } from "..";
 import board from "../../../lib/Board";
-import Heap from "../../../lib/Heap";
 import MaxHeap from "../../../lib/MaxHeap";
 import MaxHeapInsert from "../../../lib/MaxHeap/insert";
 import MaxHeapRemove from "../../../lib/MaxHeap/remove";

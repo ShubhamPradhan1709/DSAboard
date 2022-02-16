@@ -1,4 +1,3 @@
-import { BinaryTreeNode } from "../BinaryTree";
 import Heap from "../Heap";
 
 class MaxHeap extends Heap {

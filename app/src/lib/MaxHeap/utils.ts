@@ -7,8 +7,6 @@ import Heap from "../Heap";
 export async function MaxHeapify(heap: MaxHeap, i: number = 0) {
   let largest = i;
 
-  console.log(i);
-
   heap.array[i].color = Color.Cyan;
   await board.draw();
   await pause();

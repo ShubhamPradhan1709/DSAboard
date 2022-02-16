@@ -1,4 +1,4 @@
-import MaxHeap from ".";
+import PriorityQueue from ".";
 import { pause } from "../../utils/animation";
 import { BinaryTreeNode } from "../BinaryTree";
 import { BTNodeSetLeft, BTNodeSetRight } from "../BinaryTree/utils";
@@ -6,7 +6,7 @@ import board from "../Board";
 import Color from "../Colors";
 import Heap from "../Heap";
 
-async function MaxHeapInsert(heap: MaxHeap, value: number) {
+async function PriorityQueueInsert(heap: PriorityQueue, value: number) {
   const node = new BinaryTreeNode(value);
   heap.array.push(node);
 
@@ -27,7 +27,7 @@ async function MaxHeapInsert(heap: MaxHeap, value: number) {
 
   let i = heap.array.length - 1;
 
-  while (i > 0 && heap.array[Heap.PARENT(i)].value < heap.array[i].value) {
+  while (i > 0 && heap.array[Heap.PARENT(i)].value > heap.array[i].value) {
     heap.array[Heap.PARENT(i)].color = Color.Violet;
     await board.draw();
     await pause();
@@ -52,5 +52,5 @@ async function MaxHeapInsert(heap: MaxHeap, value: number) {
   await pause();
 }
 
-export default MaxHeapInsert;
+export default PriorityQueueInsert;
 

@@ -15,6 +15,33 @@ class PriorityQueue extends Heap {
       i = Heap.PARENT(i);
     }
   }
+
+  async heapify(i: number) {
+    let smallest = i;
+
+    if (
+      Heap.LEFT(i) < this.array.length &&
+      this.array[Heap.LEFT(i)].value < this.array[smallest].value
+    ) {
+      smallest = Heap.LEFT(i);
+    }
+
+    if (
+      Heap.RIGHT(i) < this.array.length &&
+      this.array[Heap.RIGHT(i)].value < this.array[smallest].value
+    ) {
+      smallest = Heap.RIGHT(i);
+    }
+
+    if (smallest !== i) {
+      [this.array[i].value, this.array[smallest].value] = [
+        this.array[smallest].value,
+        this.array[i].value,
+      ];
+
+      await this.heapify(smallest);
+    }
+  }
 }
 
 export default PriorityQueue;
