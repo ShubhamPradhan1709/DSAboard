@@ -79,6 +79,16 @@ const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
       <Section>
         <Label>Algorithms</Label>
 
+        <AlgoInputButton
+          title="Linear Search"
+          onClick={(value) => play(async () => await LinearSearch(arr, value))}
+        />
+
+        <AlgoInputButton
+          title="Binary Search"
+          onClick={(value) => play(async () => await BinarySearch(arr, value))}
+        />
+
         <AlgoButton
           title="Insertion Sort"
           onClick={() => play(async () => await InsertionSort(arr))}
@@ -101,15 +111,6 @@ const NodeArrayPanel: FC<StructurePanel> = ({ play }) => {
           onClick={() => play(async () => await SelectionSort(arr))}
         />
 
-        <AlgoInputButton
-          title="Linear Search"
-          onClick={(value) => play(async () => await LinearSearch(arr, value))}
-        />
-
-        <AlgoInputButton
-          title="Binary Search"
-          onClick={(value) => play(async () => await BinarySearch(arr, value))}
-        />
       </Section>
     </>
   );

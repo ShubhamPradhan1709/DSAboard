@@ -5,6 +5,7 @@ import Loading from "../Loading";
 import DS, { DSList } from "../../lib/DS";
 import UtilSection from "./UtilsSection";
 import useSlider from "../../hooks/useSlider";
+import Section from "./Section";
 
 const NodeArrayPanel = React.lazy(() => import("./panels/NodeArray"));
 const BinarySearchTreePanel = React.lazy(
@@ -40,13 +41,6 @@ const Panel: FC = () => {
         }}
       >
         {loading && <Loading />}
-
-        <Link to="/">
-          <button className="p-3 w-full rounded-lg font-bold bg-slate-600 hover:bg-slate-800 text-white flex justify-between">
-            <h2>{location.pathname.substring(1).split("-").join(" ")}</h2>
-            <span className="material-icons">expand_more</span>
-          </button>
-        </Link>
 
         {location.pathname !== "/" && <UtilSection play={play} />}
 

@@ -1,4 +1,6 @@
+import board from "../lib/Board";
+
 /** wait for some miliseconds */
-export const pause = async (time: number = 500) => {
-  return new Promise((resolve) => setTimeout(resolve, time));
+export const pause = async () => {
+  return new Promise((resolve) => setTimeout(resolve, board.speed));
 };

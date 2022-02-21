@@ -5,6 +5,7 @@ class Board {
   canvas: HTMLCanvasElement;
   structList: { [id: number]: Structure };
   scale: number;
+  speed: number;
 
   // add new strucure in structList with this id
   currID: number;
@@ -15,11 +16,15 @@ class Board {
 
     this.currID = 0;
     this.scale = window.innerWidth < lgWidth ? 0.6 : 1;
+
+    this.speed = 500;
   }
 
   async draw() {
     // Get next frame
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
+
+    console.log(this.speed);
 
     // Get canvas context
     const ctx = this.canvas.getContext("2d");
@@ -109,6 +114,13 @@ class Board {
   empty() {
     this.structList = {};
     this.currID = 0;
+  }
+
+  /** Update Scale of board */
+  updateScale(value: number) {
+    this.scale = value;
+
+    this.resize(this.canvas.width, this.canvas.height);
   }
 }
 

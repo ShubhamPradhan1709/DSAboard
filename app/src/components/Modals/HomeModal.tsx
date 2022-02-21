@@ -4,7 +4,7 @@ import useFullScreen from "../../hooks/useFullScreen";
 // https://tailwindui.com/components/application-ui/overlays/modals
 
 const HomeModal: FC = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [fullscreen, toggleFullScreen] = useFullScreen();
 
   if (showModal === false || fullscreen === true) {

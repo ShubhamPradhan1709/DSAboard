@@ -88,6 +88,8 @@ const MaxHeapPanel: FC<StructurePanel> = ({ play }) => {
         </p>
       </Section>
       <Section>
+        <Label>Algorithms</Label>
+
         <AlgoInputButton
           title="Insert"
           onClick={(value) =>

@@ -12,13 +12,7 @@ export const DSList: FC = () => {
   const list = Object.entries(DS);
   const buttonList = list.map(([key, value], index) => (
     <Link key={key} to={`/${value.split(" ").join("-")}`}>
-      <button
-        className={`
-          w-full p-2 border-y-slate-100 font-bold bg-slate-600 text-white hover:bg-slate-800
-          ${index === 0 ? " rounded-t-lg" : ""}
-          ${index === list.length - 1 ? " rounded-b-lg" : ""}
-        `}
-      >
+      <button className="text-white w-full my-2 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
         {value}
       </button>
     </Link>
