@@ -28,11 +28,9 @@ jobs:
       - name: Checkout pages repo
         uses: actions/checkout@v2
         with:
-          repository: Chetan-Satpute/Chetan-Satpute.github.io
-          token: ${{ secrets.GH_PAT }}
+          ref: gh-pages
           path: pages
 
-      # Runs a set of commands using the runners shell
       - name: Build React app
         run: |
           npm install
@@ -42,10 +40,9 @@ jobs:
 
       - name: Copy new build files in pages
         run: |
-          rm -r pages/dsaboard
-          mkdir pages/dsaboard
-          cp main/app/dist/* pages/dsaboard/
-          ls -alh pages/dsaboard/
+          rm -rf pages/*
+          mv main/app/dist/* pages/
+          ls -alh pages/
       
       - name: Commit push new changes in pages
         run: |
@@ -53,7 +50,7 @@ jobs:
           git config user.email Chetan-Satpute@users.noreply.github.com
           git add --all
           git commit -m "Deploy DSABoard"
-          git push origin main
+          git push origin gh-pages
         working-directory: pages
 
   # This workflow contains a single job called "build"
