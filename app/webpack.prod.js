@@ -16,7 +16,10 @@ const config = {
       },
     ],
   },
-  optimization: { minimizer: [new CssMinimizerPlugin()] },
+  optimization: { 
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin(), '...'] 
+  },
   plugins: [new MiniCssExtractPlugin()],
 };
 
