@@ -4,4 +4,7 @@ dist/
 .npm/
 .config/
 
+app/src/ref/
+server/src/ref/
+
 TODO.md
