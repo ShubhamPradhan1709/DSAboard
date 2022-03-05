@@ -1,5 +1,7 @@
 import React, { FC } from "react";
+import Canvas from "./Canvas";
 import Panel from "./Panel";
+import Home from "./Panel/Home";
 
 const App: FC = () => {
   return (
@@ -8,12 +10,13 @@ const App: FC = () => {
         <header>
           <h1 className="text-white text-center text-2xl">DSABoard</h1>
         </header>
-        <div className="flex-auto overflow-auto">
-          <canvas height={2000} width={2000} />
-        </div>
+
+        <main className="flex-auto overflow-auto">
+          <Canvas />
+        </main>
       </div>
 
-      <Panel />
+      <Home />
     </div>
   );
 };
