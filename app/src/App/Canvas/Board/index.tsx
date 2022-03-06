@@ -4,9 +4,15 @@ class Board {
   canvas: HTMLCanvasElement;
   state: Structure[];
 
+  speed: number;
+  scale: number;
+
   constructor() {
     this.canvas = document.createElement("canvas");
     this.state = [];
+
+    this.speed = 500;
+    this.scale = 1;
   }
 
   // Render current state on canvas

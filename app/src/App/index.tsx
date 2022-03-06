@@ -18,7 +18,7 @@ const App: FC = () => {
 
       <Home />
 
-      <HomeModal />
+      {/* <HomeModal /> */}
     </div>
   );
 };

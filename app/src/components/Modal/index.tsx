@@ -17,10 +17,7 @@ const Modal: FC<IModalProps> = ({ isOpen, setIsOpen, children }) => {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div
-          className="absolute h-screen w-screen bg-black/50 top-0 left-0 p-3"
-          onClick={() => setIsOpen(false)}
-        >
+        <div className="absolute h-screen w-screen bg-black/50 top-0 left-0 p-3">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-200"

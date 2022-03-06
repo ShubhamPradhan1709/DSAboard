@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import SettingsModal from "../../components/Modal/SettingsModal";
 import useSlider from "../../hooks/useSlider";
 import { isScreenMd, isScreenSm } from "../../utils/screenSize";
 
@@ -46,6 +47,8 @@ const Panel: FC<IProps> = ({ title, children }) => {
         </div>
 
         <hr />
+
+        <SettingsModal isOpen={showSettings} setIsOpen={setShowSettings} />
 
         <div className="p-3">{children}</div>
 
