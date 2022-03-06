@@ -1,6 +1,4 @@
 import React, { FC, useState } from "react";
-import Button from "../../components/Button";
-import useFullScreen from "../../hooks/useFullScreen";
 import useSlider from "../../hooks/useSlider";
 import { isScreenMd, isScreenSm } from "../../utils/screenSize";
 
@@ -49,20 +47,9 @@ const Panel: FC<IProps> = ({ title, children }) => {
 
         <hr />
 
-        <div className="p-3">
-          {showSettings ? <Settings /> : <>{children}</>}
-        </div>
+        <div className="p-3">{children}</div>
+
       </div>
-    </div>
-  );
-};
-
-const Settings: FC = () => {
-  const [_, toggleFullscreen] = useFullScreen();
-
-  return (
-    <div>
-      <Button onClick={toggleFullscreen}>Toggle Fullscreen</Button>
     </div>
   );
 };
