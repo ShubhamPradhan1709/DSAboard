@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
+import { randomArrayGenerator } from "./ref/utils";
 
 // Load environment variables
 dotenv.config();
@@ -13,6 +14,11 @@ app.use(morgan("dev"));
 
 app.get("/", (_, res) => {
   res.send({ message: "DSA Board Server !" });
+});
+
+app.get("/array", (_, res) => {
+  const values = randomArrayGenerator();
+  res.send({ array: values });
 });
 
 const PORT = process.env.PORT || 8000;

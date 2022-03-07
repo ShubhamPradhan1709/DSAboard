@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import HomeModal from "../components/Modal/HomeModal";
 import Canvas from "./Canvas";
+import Panel from "./Panel";
+import Array from "./Panel/Route/Array";
 import Home from "./Panel/Route/Home";
 
 const App: FC = () => {
@@ -16,7 +18,9 @@ const App: FC = () => {
         </main>
       </div>
 
-      <Home />
+      <Panel>
+        <Array />
+      </Panel>
 
       {/* <HomeModal /> */}
     </div>
