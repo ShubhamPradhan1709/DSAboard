@@ -9,7 +9,8 @@ services:
     ports:
       - 8080:8080
     volumes: 
-      - ./app/:/home/node
+      - ./app/:/home/node/app
+      - /home/node/app/node_modules
 
   server:
     image: dsaboard-server:dev
@@ -19,5 +20,6 @@ services:
     ports:
       - 8000:8000
     volumes: 
-      - ./server/:/home/node
+      - ./server/:/home/node/app
+      - /home/node/app/node_modules
 

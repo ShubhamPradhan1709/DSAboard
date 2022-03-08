@@ -5,9 +5,16 @@ FROM node:lts-alpine as DEV
 
 USER node:node
 
-WORKDIR /home/node
+WORKDIR /home/node/app
 
 ENV NODE_ENV=development
+
+COPY --chown=node:node package-lock.json package.json ./
+
+RUN npm install
+
+COPY --chown=node:node . .
+
 
 CMD [ "npm", "start" ]
 
@@ -20,7 +27,7 @@ FROM node:lts-alpine as BUILD
 
 USER node:node
 
-WORKDIR /home/node
+WORKDIR /home/node/app
 
 COPY --chown=node:node package*.json ./
 

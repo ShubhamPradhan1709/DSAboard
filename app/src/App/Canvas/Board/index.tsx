@@ -1,8 +1,10 @@
 import Structure from "../../../lib/Structure";
 
+export type State = { [id: number | string]: Structure };
+
 class Board {
   canvas: HTMLCanvasElement;
-  state: { [id: number | string]: Structure };
+  state: State;
 
   speed: number;
   scale: number;
@@ -22,11 +24,8 @@ class Board {
 
   /** Render current state on canvas */
   async render() {
-    // Wait for next animation frame
-    await new Promise((resolve) => {
-      window.requestAnimationFrame(resolve);
-    });
-
+    // Wait for next animation frame and predraw
+    await new Promise((resolve) => window.requestAnimationFrame(resolve));
     await this.preDraw();
     await this.draw();
   }
@@ -54,12 +53,6 @@ class Board {
 
   /** Draw state on board */
   async draw() {
-    // Get next frame and prepare for draw
-    await Promise.all([
-      new Promise((resolve) => window.requestAnimationFrame(resolve)),
-      this.preDraw(),
-    ]);
-
     // Get canvas context
     const ctx = this.canvas.getContext("2d");
     // Set default styles for ctx
@@ -126,9 +119,14 @@ class Board {
   }
 
   /** Remove all structures from board */
-  empty() {
+  resetState() {
     this.state = {};
     this.currID = 0;
+  }
+
+  /** Pause based on speed */
+  async pause() {
+    await new Promise((res) => setTimeout(res, this.speed));
   }
 }
 

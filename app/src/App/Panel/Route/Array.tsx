@@ -4,6 +4,11 @@ import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import usePlay from "../../../hooks/usePlay";
 import NodeArray from "../../../lib/NodeArray";
+import BubbleSort from "../../../lib/NodeArray/BubbleSort";
+import InsertionSort from "../../../lib/NodeArray/InsertionSort";
+import MergeSort from "../../../lib/NodeArray/MergeSort";
+import QuickSort from "../../../lib/NodeArray/QuickSort";
+import SelectionSort from "../../../lib/NodeArray/SelectionSort";
 import { getArrayData } from "../../../utils/server";
 import board from "../../Canvas/Board";
 
@@ -22,7 +27,7 @@ const Array: FC = () => {
       const values = await getArrayData();
       arr.setArray(values);
 
-      await board.draw();
+      await board.render();
     });
   };
 
@@ -34,7 +39,7 @@ const Array: FC = () => {
           const values = e.target.value.split(",").map((n) => Number(n));
 
           arr.setArray(values);
-          board.draw();
+          board.render();
         }}
         defaultValue={arr.array.map((node) => node.value).join()}
       />
@@ -44,11 +49,21 @@ const Array: FC = () => {
       <Button onClick={setRandomData}>Get Random Array</Button>
 
       <hr className="my-3" />
-      <Button onClick={() => {}}>Insertion Sort</Button>
-      <Button onClick={() => {}}>Bubble Sort</Button>
-      <Button onClick={() => {}}>Selection Sort</Button>
-      <Button onClick={() => {}}>Merge Sort</Button>
-      <Button onClick={() => {}}>Quick Sort</Button>
+      <Button onClick={() => play(async () => await InsertionSort(arr))}>
+        Insertion Sort
+      </Button>
+      <Button onClick={() => play(async () => await BubbleSort(arr))}>
+        Bubble Sort
+      </Button>
+      <Button onClick={() => play(async () => await SelectionSort(arr))}>
+        Selection Sort
+      </Button>
+      <Button onClick={() => play(async () => await MergeSort(arr))}>
+        Merge Sort
+      </Button>
+      <Button onClick={() => play(async () => await QuickSort(arr))}>
+        Quick Sort
+      </Button>
     </PanelContent>
   );
 };

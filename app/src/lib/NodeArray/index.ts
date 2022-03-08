@@ -17,19 +17,9 @@ class NodeArray extends Structure {
     this.array = [];
   }
 
-
   /** Update box */
   async preDraw(ctx: CanvasRenderingContext2D): Promise<void> {
     this.box.width = this.array.length * Node.WIDTH;
-  }
-
-  /** Draw node array */
-  async draw(ctx: CanvasRenderingContext2D) {
-    // Update box width
-    this.box.width = 0;
-    this.box.width = this.array.length * Node.WIDTH;
-
-    // Draw each array node individually
     for (let i = 0; i < this.array.length; i++) {
       // Move node at its correct position
       this.array[i].moveTo(this.box.x + Node.WIDTH * i, this.box.y);
@@ -40,7 +30,17 @@ class NodeArray extends Structure {
         bottomLeft: i === 0,
         bottomRight: i === this.array.length - 1,
       };
+    }
+  }
 
+  /** Draw node array */
+  async draw(ctx: CanvasRenderingContext2D) {
+    // Update box width
+    this.box.width = 0;
+    this.box.width = this.array.length * Node.WIDTH;
+
+    // Draw each array node individually
+    for (let i = 0; i < this.array.length; i++) {
       await this.array[i].draw(ctx);
     }
 

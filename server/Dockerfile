@@ -5,7 +5,15 @@ FROM node:lts-alpine AS DEV
 
 USER node:node
 
-WORKDIR /home/node
+WORKDIR /home/node/app
+
+ENV NODE_ENV=development
+
+COPY --chown=node:node package-lock.json package.json ./
+
+RUN npm install
+
+COPY --chown=node:node . .
 
 CMD [ "npm", "run", "dev" ]
 
@@ -16,7 +24,7 @@ FROM node:lts-alpine AS BUILD
 
 USER node:node
 
-WORKDIR /home/node
+WORKDIR /home/node/app
 
 COPY --chown=node:node ["package.json", "package-lock.json", "./"]
 
@@ -34,13 +42,13 @@ ENV PORT=80
 
 USER node:node
 
-WORKDIR /home/node
+WORKDIR /home/node/app
 
 COPY --chown=node:node ["package.json", "package-lock.json", "./"]
 
 RUN npm install --production
 
-COPY --from=BUILD /home/node/dist .
+COPY --from=BUILD /home/node/app/dist .
 
 CMD [ "node", "index.js" ]
 
