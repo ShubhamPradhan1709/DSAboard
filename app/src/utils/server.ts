@@ -25,3 +25,9 @@ export const getArrayData = async () => {
   return array;
 };
 
+export const getBSTData = async () => {
+  const { array } = await fetchRoute("bst") as { array: number[] };
+
+  return array;
+};
+

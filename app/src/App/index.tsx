@@ -1,10 +1,20 @@
 import React, { FC } from "react";
+import { Route, Routes } from "react-router-dom";
+import Loading from "../components/Loading";
 import AlertModal from "../components/Modal/AlertModal";
 import HomeModal from "../components/Modal/HomeModal";
 import Canvas from "./Canvas";
-import Panel from "./Panel";
-import Array from "./Panel/Route/Array";
+import Panel, { PanelContent } from "./Panel";
+
 import Home from "./Panel/Route/Home";
+const Array = React.lazy(() => import("./Panel/Route/Array"));
+const BinarySearchTree = React.lazy(
+  () => import("./Panel/Route/BinarySearchTree")
+);
+const MaxHeap = React.lazy(() => import("./Panel/Route/MaxHeap"));
+const PriorityQueuePanel = React.lazy(
+  () => import("./Panel/Route/PriorityQueue")
+);
 
 const App: FC = () => {
   return (
@@ -20,10 +30,24 @@ const App: FC = () => {
       </div>
 
       <Panel>
-        <Array />
+        <React.Suspense
+          fallback={
+            <PanelContent title="Loading...">
+              <Loading />
+            </PanelContent>
+          }
+        >
+          <Routes>
+            <Route path="" element={<Home />} />
+            <Route path="array" element={<Array />} />
+            <Route path="binary-search-tree" element={<BinarySearchTree />} />
+            <Route path="max-heap" element={<MaxHeap />} />
+            <Route path="priority-queue" element={<PriorityQueuePanel />} />
+          </Routes>
+        </React.Suspense>
       </Panel>
 
-      {/* <HomeModal /> */}
+      <HomeModal />
       <AlertModal />
     </div>
   );

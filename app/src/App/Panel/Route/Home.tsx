@@ -1,29 +1,23 @@
-import React, { FC, useContext, useEffect } from "react";
+import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import { PanelContent } from "..";
 import Button from "../../../components/Button";
-import PlayContext from "../../../contexts/playContext";
-import board from "../../Canvas/Board";
 
 const Home: FC = () => {
-
-  useEffect(() => {
-    const ctx = board.canvas.getContext('2d');
-
-    ctx.strokeStyle = "#ffffff";
-    ctx.moveTo(100, 100);
-    ctx.lineTo(200, 200);
-    ctx.stroke();
-  }, []);
-
-
   return (
     <PanelContent title="Select Structure">
-      <Button>Array</Button>
-      <Button>Binary Search Tree</Button>
-      <Button>Priority Queue</Button>
-      <Button>Max-Heap</Button>
-      <Button>Red Black Tree</Button>
-      <Button>B-Tree</Button>
+      <Link to="array">
+        <Button>Array</Button>
+      </Link>
+      <Link to="binary-search-tree">
+        <Button>Binary Search Tree</Button>
+      </Link>
+      <Link to="max-heap">
+        <Button>Max-Heap</Button>
+      </Link>
+      <Link to="priority-queue">
+        <Button>Priority Queue</Button>
+      </Link>
     </PanelContent>
   );
 };

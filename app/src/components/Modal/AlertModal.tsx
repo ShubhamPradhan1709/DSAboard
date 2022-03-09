@@ -25,16 +25,18 @@ const AlertModal: FC = () => {
     };
   }, []);
 
+  if (showModal === false) {
+    return null;
+  }
+
   return (
     <Modal isOpen={showModal} setIsOpen={setShowModal}>
       <div className="flex">
-        <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-200 sm:mx-0 sm:h-10 sm:w-10">
+        <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-red-200 sm:mx-0 sm:h-10 sm:w-10">
           <span className="material-icons text-red-500">priority_high</span>
         </div>
-        <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-          <div className="mt-2">
-            <p className="text-sm text-gray-500">{info}</p>
-          </div>
+        <div className="text-center sm:mt-0 sm:ml-4 sm:text-left flex justify-center items-center">
+            <p className="text-sm text-gray-500 px-3">{info}</p>
         </div>
       </div>
       <div className="sm:flex sm:flex-row-reverse">

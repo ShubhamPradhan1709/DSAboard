@@ -24,6 +24,11 @@ const Array: FC = () => {
     board.add(arr);
     arr.moveTo(100, 100);
     setRandomData();
+
+    return () => {
+      board.resetState();
+      board.render();
+    }
   }, []);
 
   const setRandomData = async () => {
@@ -89,8 +94,6 @@ const Array: FC = () => {
       <Button onClick={() => play(async () => await QuickSort(arr))}>
         Quick Sort
       </Button>
-
-      <AlertModal />
     </PanelContent>
   );
 };

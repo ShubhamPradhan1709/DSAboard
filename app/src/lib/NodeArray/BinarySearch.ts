@@ -21,12 +21,12 @@ async function BinarySearch(arr: NodeArray, value: number) {
     let m = Math.floor((l + r) / 2);
 
     arr.array[m].color = Color.Violet;
-    await board.draw();
+    await board.render();
     await board.pause();
 
     if (arr.array[m].value === value) {
       arr.array[m].color = Color.Green;
-      await board.draw();
+      await board.render();
       await board.pause();
       await board.pause();
 
@@ -36,7 +36,7 @@ async function BinarySearch(arr: NodeArray, value: number) {
         arr.array[i].color = Color.Red;
       }
 
-      await board.draw();
+      await board.render();
       await board.pause();
       await board.pause();
 
@@ -46,7 +46,7 @@ async function BinarySearch(arr: NodeArray, value: number) {
         arr.array[i].color = Color.Red;
       }
 
-      await board.draw();
+      await board.render();
       await board.pause();
       await board.pause();
 
@@ -56,7 +56,7 @@ async function BinarySearch(arr: NodeArray, value: number) {
 
   if (l === r && arr.array[l].value === value) {
     arr.array[l].color = Color.Green;
-    await board.draw();
+    await board.render();
     await board.pause();
     await board.pause();
   }
@@ -65,7 +65,7 @@ async function BinarySearch(arr: NodeArray, value: number) {
     arr.array[i].color = Color.Transparent;
   }
 
-  await board.draw();
+  await board.render();
   await board.pause();
 }
 

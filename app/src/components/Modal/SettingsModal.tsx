@@ -2,10 +2,12 @@ import React, { FC } from "react";
 import Modal, { IModalProps } from ".";
 import board from "../../App/Canvas/Board";
 import useFullScreen from "../../hooks/useFullScreen";
+import usePlay from "../../hooks/usePlay";
 import Button from "../Button";
 
 const SettingsModal: FC<IModalProps> = (props) => {
   const [_, toggleFullscreen] = useFullScreen();
+  const play = usePlay();
 
   return (
     <Modal {...props}>
@@ -50,7 +52,10 @@ const SettingsModal: FC<IModalProps> = (props) => {
 
             if (value !== undefined && Number.isNaN(value) === false) {
               board.scale = +e.target.value;
-              board.render();
+
+              play(async () => {
+                await board.render();
+              });
             }
           }}
           defaultValue={board.scale}

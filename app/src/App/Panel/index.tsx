@@ -1,4 +1,6 @@
 import React, { FC, useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import Loading from "../../components/Loading";
 import SettingsModal from "../../components/Modal/SettingsModal";
 import PlayContext from "../../contexts/playContext";
 import useSlider from "../../hooks/useSlider";
@@ -33,7 +35,7 @@ export const PanelContent: FC<IProps> = ({ title, children }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [play] = useContext(PlayContext);
 
-  const isHome: boolean = true;
+  const { pathname } = useLocation();
 
   return (
     <div className="flex-auto overflow-auto">
@@ -45,7 +47,9 @@ export const PanelContent: FC<IProps> = ({ title, children }) => {
             justify-between
         `}
       >
-        <button className="material-icons">{isHome ? "" : "arrow_back"}</button>
+        <button className="material-icons">
+          <Link to="/">{pathname === "/" ? "" : "arrow_back"}</Link>
+        </button>
 
         <h1 className="text-xl">{title}</h1>
 
@@ -61,8 +65,7 @@ export const PanelContent: FC<IProps> = ({ title, children }) => {
 
       <SettingsModal isOpen={showSettings} setIsOpen={setShowSettings} />
 
-      {play ? <h1>Loading...</h1> : <div className="p-3">{children}</div>}
-
+      {play ? <Loading /> : <div className="p-3">{children}</div>}
     </div>
   );
 };
