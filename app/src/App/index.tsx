@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import AlertModal from "../components/Modal/AlertModal";
 import HomeModal from "../components/Modal/HomeModal";
 import Canvas from "./Canvas";
 import Panel from "./Panel";
@@ -23,6 +24,7 @@ const App: FC = () => {
       </Panel>
 
       {/* <HomeModal /> */}
+      <AlertModal />
     </div>
   );
 };

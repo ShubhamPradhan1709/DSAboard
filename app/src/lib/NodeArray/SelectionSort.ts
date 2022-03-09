@@ -15,10 +15,10 @@ const SelectionSort = async (arr: NodeArray) => {
 
       if (arr.array[j].value < arr.array[i].value) {
         [arr.array[j], arr.array[i]] = [arr.array[i], arr.array[j]];
+        arr.array[i].color = Color.Blue;
         await board.render();
         await board.pause();
 
-        arr.array[i].color = Color.Blue;
       }
       arr.array[j].color = Color.Transparent;
       await board.render();

@@ -7,8 +7,6 @@ import Button from "../Button";
 const SettingsModal: FC<IModalProps> = (props) => {
   const [_, toggleFullscreen] = useFullScreen();
 
-  // TODO: handle change in scale and size
-
   return (
     <Modal {...props}>
       <div className="flex justify-between">
@@ -28,7 +26,14 @@ const SettingsModal: FC<IModalProps> = (props) => {
           min={100}
           max={1000}
           step={10}
-          defaultValue={board.speed}
+          onChange={(e) => {
+            let value = +e.target.value;
+
+            if (value !== undefined && Number.isNaN(value) === false) {
+              board.speed = 1000 - value;
+            }
+          }}
+          defaultValue={1000 - board.speed}
         />
       </div>
 
@@ -40,6 +45,14 @@ const SettingsModal: FC<IModalProps> = (props) => {
           min={0.1}
           max={2}
           step={0.1}
+          onChange={(e) => {
+            let value = +e.target.value;
+
+            if (value !== undefined && Number.isNaN(value) === false) {
+              board.scale = +e.target.value;
+              board.render();
+            }
+          }}
           defaultValue={board.scale}
         />
       </div>

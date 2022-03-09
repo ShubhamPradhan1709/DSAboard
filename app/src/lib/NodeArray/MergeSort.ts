@@ -31,7 +31,6 @@ async function MergeSort(arr: NodeArray) {
     await Merge(arr, left, right);
 
     board.remove(left, right);
-
     await board.render();
     await board.pause();
 
@@ -56,10 +55,6 @@ async function Merge(arr: NodeArray, a: NodeArray, b: NodeArray) {
   let j = 0;
 
   for (let k = 0; k < arr.array.length; k++) {
-    arr.array[k].color = Color.Violet;
-    await board.render();
-    await board.pause();
-
     if (i === a.array.length) {
       arr.array[k].value = b.array[j].value;
       b.array[j].value = NaN;
