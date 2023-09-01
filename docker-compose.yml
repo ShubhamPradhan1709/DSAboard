@@ -1,25 +1,21 @@
-version: "3.8"
+version: '3'
 
 services:
-  app:
-    image: dsaboard-app:dev
+  react-app:
     build:
       context: ./app/
-      target: DEV
+      dockerfile: dockerfile
     ports:
-      - 8080:8080
-    volumes: 
-      - ./app/:/home/node/app
-      - /home/node/app/node_modules
-
-  server:
-    image: dsaboard-server:dev
+      - "8085:8085"
+    depends_on:
+      - node
+    restart: always
+    
+  node:
     build:
       context: ./server/
-      target: DEV
+      dockerfile: dockerfile
     ports:
-      - 8000:8000
-    volumes: 
-      - ./server/:/home/node/app
-      - /home/node/app/node_modules
-
+      - "8000:8000"
+    restart: always
+   

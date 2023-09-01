@@ -3,9 +3,9 @@ declare const PRODUCTION: string;
 export let BACKEND_URL: string;
 
 if (PRODUCTION) {
-  BACKEND_URL = "https://studious-server.azurewebsites.net/api/dsaboard";
+  BACKEND_URL = "https://studious-server.azurewebsites.net";
 } else {
-  BACKEND_URL = "http://localhost:8000/api/dsaboard";
+  BACKEND_URL = "http://localhost:8000";
   // BACKEND_URL = "http://192.168.43.6:8000";
 }
 
